@@ -1,0 +1,57 @@
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  thead th {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  tbody th {
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  time {
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  &__value {
+    display: block;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--gold-bright);
+  }
+
+  &__actions {
+    text-align: right;
+    white-space: nowrap;
+
+    .link + .link {
+      margin-left: 12px;
+    }
+  }
+
+  &__editing td {
+    background: rgb(214 178 110 / 0.05);
+  }
+}

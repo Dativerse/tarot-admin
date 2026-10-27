@@ -1,0 +1,180 @@
+{
+  "brand": "Tarot Admin",
+  "footer": "Card images: Rider–Waite–Smith deck (1909), public domain. Card meanings: Tarotoo dataset (MIT).",
+
+  "nav": {
+    "label": "Sections",
+    "cards": "Cards",
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+
+  "session": {
+    "checking": "Checking your session…",
+    "retry": "Retry"
+  },
+
+  "signIn": {
+    "title": "Sign in",
+    "subtitle": "Enter the admin password to manage cards and settings.",
+    "password": "Password",
+    "submit": "Sign in",
+    "signingIn": "Signing in…"
+  },
+
+  "cardsPage": {
+    "title": "Cards",
+    "subtitle": "The 78 cards readings are built from. The API and the worker pick up edits within 5 minutes.",
+    "searchLabel": "Search cards",
+    "searchPlaceholder": "Search by name or number…",
+    "arcana": "Arcana",
+    "suit": "Suit",
+    "all": "All",
+    "loading": "Loading cards…",
+    "showing": "Showing {{count}} of {{total}}",
+    "noMatches": "No cards match these filters.",
+    "reseed": "Re-seed from dataset",
+    "reseeding": "Re-seeding…",
+    "reseedConfirm": "Reset every card to the original dataset? Your card edits will be lost. Changed settings are kept.",
+    "reseeded": "Re-seeded {{count}} cards from the dataset."
+  },
+
+  "cardPage": {
+    "navigation": "Card navigation",
+    "back": "All cards",
+    "previous": "Previous",
+    "next": "Next",
+    "loading": "Loading card…"
+  },
+
+  "cardEditor": {
+    "identity": "Card",
+    "name": "Name",
+    "arcana": "Arcana",
+    "suit": "Suit",
+    "correspondences": "Correspondences",
+    "numerology": "Number",
+    "element": "Element",
+    "planet": "Planet",
+    "planetHint": "Leave empty if none.",
+    "zodiac": "Zodiac",
+    "yesNo": "Yes / no leaning",
+    "keywords": "Keywords",
+    "keywordsHint": "Separate with commas.",
+    "meaning": "Meaning",
+    "love": "Love",
+    "career": "Career",
+    "mood": "Mood",
+    "spiritual": "Spiritual"
+  },
+
+  "form": {
+    "save": "Save",
+    "saving": "Saving…",
+    "reset": "Discard changes",
+    "unsaved": "Unsaved changes",
+    "invalid": "Check the highlighted fields.",
+    "saved": "Saved."
+  },
+
+  "settingsPage": {
+    "title": "Settings",
+    "subtitle": "Read by the API and the worker. Both cache settings for up to 5 minutes, so changes take a moment to apply."
+  },
+
+  "ollama": {
+    "title": "Reading model",
+    "description": "The model endpoint the worker generates readings with.",
+    "loading": "Loading…",
+    "baseUrl": "Base URL",
+    "baseUrlHint": "OpenAI-compatible endpoint, e.g. http://ollama:11434/v1",
+    "model": "Model",
+    "modelHint": "e.g. llama3.2:3b",
+    "timeout": "Timeout (seconds)"
+  },
+
+  "deck": {
+    "title": "Deck",
+    "description": "How new decks are generated. Existing decks keep their cards.",
+    "loading": "Loading…",
+    "ratio": "Reversed cards: {{percent}}",
+    "mode": "Reversal mode",
+    "previewBernoulli": "Each card is reversed with a {{percent}} chance: about {{count}} of 78 per deck.",
+    "previewExact": "Exactly {{count}} of 78 cards are reversed in every deck."
+  },
+
+  "reversalModes": {
+    "Bernoulli": "Random (Bernoulli)",
+    "Exact": "Exact"
+  },
+
+  "settingsTable": {
+    "title": "All settings",
+    "description": "Raw rows from system_settings. Values are JSON, so strings need double quotes.",
+    "loading": "Loading settings…",
+    "empty": "No settings yet. Re-seeding the cards adds the defaults.",
+    "name": "Name",
+    "value": "Value",
+    "descriptionColumn": "Description",
+    "updated": "Updated",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Delete “{{name}}”? The API and the worker fall back to their configured defaults.",
+    "cancel": "Cancel",
+    "valueHint": "JSON, e.g. \"llama3.2:3b\", 300 or 0.3",
+    "nameHint": "Letters, digits and . : _ -, e.g. ollama:model",
+    "addTitle": "Add a setting",
+    "add": "Add setting",
+    "adding": "Adding…"
+  },
+
+  "arcana": {
+    "major": "Major Arcana",
+    "minor": "Minor Arcana"
+  },
+
+  "suits": {
+    "wands": "Wands",
+    "cups": "Cups",
+    "swords": "Swords",
+    "pentacles": "Pentacles"
+  },
+
+  "orientations": {
+    "upright": "Upright",
+    "reversed": "Reversed"
+  },
+
+  "yesNo": {
+    "yes": "Yes",
+    "no": "No",
+    "maybe": "Maybe"
+  },
+
+  "errors": {
+    "VALIDATION_ERROR": "The Admin API rejected the request. Check the values and try again.",
+    "UNAUTHORIZED": "Your admin session has ended. Sign in again.",
+    "UNAUTHORIZED_signIn": "Wrong password.",
+    "RATE_LIMITED": "Too many attempts. Wait a minute and try again.",
+    "NOT_FOUND": "Not found.",
+    "INTERNAL_ERROR": "The Admin API failed to handle the request. Check that it is running and look at its logs.",
+    "UNAVAILABLE": "Can't reach the Admin API. Check that it is running.",
+    "unknown": "Something went wrong."
+  },
+
+  "validation": {
+    "required": "Required.",
+    "suitRequired": "Choose a suit for a Minor Arcana card.",
+    "numerologyInvalid": "Enter a whole number.",
+    "keywordsRequired": "Add at least one keyword.",
+    "baseUrlInvalid": "Enter an http:// or https:// URL.",
+    "timeoutInvalid": "Enter a whole number of seconds from 1 to 3600.",
+    "valueRequired": "Enter a value.",
+    "valueInvalidJson": "Not valid JSON. Strings need double quotes, e.g. \"llama3.2:3b\".",
+    "nameInvalid": "Use letters, digits and . : _ - only.",
+    "nameTooLong": "Use at most 128 characters.",
+    "nameReserved": "This name is taken by a built-in settings group.",
+    "nameTaken": "A setting with this name exists. Edit it in the table instead."
+  }
+}

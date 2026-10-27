@@ -1,0 +1,180 @@
+{
+  "brand": "Tarot Admin",
+  "footer": "Hình ảnh: Bộ bài Rider–Waite–Smith (1909), phạm vi công cộng. Ý nghĩa lá bài: Bộ dữ liệu Tarotoo (MIT).",
+
+  "nav": {
+    "label": "Mục",
+    "cards": "Lá bài",
+    "settings": "Cài đặt",
+    "signOut": "Đăng xuất"
+  },
+
+  "session": {
+    "checking": "Đang kiểm tra phiên đăng nhập…",
+    "retry": "Thử lại"
+  },
+
+  "signIn": {
+    "title": "Đăng nhập",
+    "subtitle": "Nhập mật khẩu quản trị để quản lý lá bài và cài đặt.",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "signingIn": "Đang đăng nhập…"
+  },
+
+  "cardsPage": {
+    "title": "Lá bài",
+    "subtitle": "78 lá bài dùng để tạo bài đọc. API và worker nhận các chỉnh sửa trong vòng 5 phút.",
+    "searchLabel": "Tìm lá bài",
+    "searchPlaceholder": "Tìm theo tên hoặc số…",
+    "arcana": "Bộ Ẩn",
+    "suit": "Chất",
+    "all": "Tất cả",
+    "loading": "Đang tải lá bài…",
+    "showing": "Hiển thị {{count}} / {{total}}",
+    "noMatches": "Không có lá bài nào khớp bộ lọc.",
+    "reseed": "Nạp lại từ bộ dữ liệu",
+    "reseeding": "Đang nạp lại…",
+    "reseedConfirm": "Đưa mọi lá bài về bộ dữ liệu gốc? Các chỉnh sửa lá bài sẽ bị mất. Cài đặt đã thay đổi được giữ nguyên.",
+    "reseeded": "Đã nạp lại {{count}} lá bài từ bộ dữ liệu."
+  },
+
+  "cardPage": {
+    "navigation": "Điều hướng lá bài",
+    "back": "Tất cả lá bài",
+    "previous": "Trước",
+    "next": "Sau",
+    "loading": "Đang tải lá bài…"
+  },
+
+  "cardEditor": {
+    "identity": "Lá bài",
+    "name": "Tên",
+    "arcana": "Bộ Ẩn",
+    "suit": "Chất",
+    "correspondences": "Tương ứng",
+    "numerology": "Số",
+    "element": "Nguyên tố",
+    "planet": "Hành tinh",
+    "planetHint": "Để trống nếu không có.",
+    "zodiac": "Cung hoàng đạo",
+    "yesNo": "Thiên về Có / Không",
+    "keywords": "Từ khóa",
+    "keywordsHint": "Phân cách bằng dấu phẩy.",
+    "meaning": "Ý nghĩa",
+    "love": "Tình yêu",
+    "career": "Sự nghiệp",
+    "mood": "Tâm trạng",
+    "spiritual": "Tâm linh"
+  },
+
+  "form": {
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "reset": "Hủy thay đổi",
+    "unsaved": "Có thay đổi chưa lưu",
+    "invalid": "Kiểm tra các trường được đánh dấu.",
+    "saved": "Đã lưu."
+  },
+
+  "settingsPage": {
+    "title": "Cài đặt",
+    "subtitle": "API và worker đọc các cài đặt này và lưu đệm tối đa 5 phút, nên thay đổi cần một lúc để có hiệu lực."
+  },
+
+  "ollama": {
+    "title": "Mô hình đọc bài",
+    "description": "Endpoint mô hình mà worker dùng để tạo bài đọc.",
+    "loading": "Đang tải…",
+    "baseUrl": "URL gốc",
+    "baseUrlHint": "Endpoint tương thích OpenAI, ví dụ http://ollama:11434/v1",
+    "model": "Mô hình",
+    "modelHint": "ví dụ llama3.2:3b",
+    "timeout": "Thời gian chờ (giây)"
+  },
+
+  "deck": {
+    "title": "Bộ bài",
+    "description": "Cách tạo bộ bài mới. Các bộ bài đã có giữ nguyên.",
+    "loading": "Đang tải…",
+    "ratio": "Lá ngược: {{percent}}",
+    "mode": "Cách đảo lá",
+    "previewBernoulli": "Mỗi lá có {{percent}} khả năng bị ngược: khoảng {{count}} / 78 lá mỗi bộ.",
+    "previewExact": "Đúng {{count}} / 78 lá bị ngược trong mỗi bộ."
+  },
+
+  "reversalModes": {
+    "Bernoulli": "Ngẫu nhiên (Bernoulli)",
+    "Exact": "Chính xác"
+  },
+
+  "settingsTable": {
+    "title": "Tất cả cài đặt",
+    "description": "Dữ liệu thô từ bảng system_settings. Giá trị là JSON, nên chuỗi phải đặt trong dấu ngoặc kép.",
+    "loading": "Đang tải cài đặt…",
+    "empty": "Chưa có cài đặt. Nạp lại lá bài sẽ thêm các giá trị mặc định.",
+    "name": "Tên",
+    "value": "Giá trị",
+    "descriptionColumn": "Mô tả",
+    "updated": "Cập nhật",
+    "actions": "Thao tác",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "deleteConfirm": "Xóa “{{name}}”? API và worker sẽ dùng giá trị mặc định đã cấu hình.",
+    "cancel": "Hủy",
+    "valueHint": "JSON, ví dụ \"llama3.2:3b\", 300 hoặc 0.3",
+    "nameHint": "Chữ, số và . : _ -, ví dụ ollama:model",
+    "addTitle": "Thêm cài đặt",
+    "add": "Thêm cài đặt",
+    "adding": "Đang thêm…"
+  },
+
+  "arcana": {
+    "major": "Ẩn Chính",
+    "minor": "Ẩn Phụ"
+  },
+
+  "suits": {
+    "wands": "Gậy",
+    "cups": "Cốc",
+    "swords": "Kiếm",
+    "pentacles": "Tiền"
+  },
+
+  "orientations": {
+    "upright": "Xuôi",
+    "reversed": "Ngược"
+  },
+
+  "yesNo": {
+    "yes": "Có",
+    "no": "Không",
+    "maybe": "Có thể"
+  },
+
+  "errors": {
+    "VALIDATION_ERROR": "Admin API từ chối yêu cầu. Kiểm tra các giá trị và thử lại.",
+    "UNAUTHORIZED": "Phiên quản trị đã hết. Hãy đăng nhập lại.",
+    "UNAUTHORIZED_signIn": "Sai mật khẩu.",
+    "RATE_LIMITED": "Quá nhiều lần thử. Hãy đợi một phút rồi thử lại.",
+    "NOT_FOUND": "Không tìm thấy.",
+    "INTERNAL_ERROR": "Admin API không xử lý được yêu cầu. Kiểm tra xem nó có đang chạy không và xem log.",
+    "UNAVAILABLE": "Không kết nối được Admin API. Kiểm tra xem nó có đang chạy không.",
+    "unknown": "Đã xảy ra lỗi."
+  },
+
+  "validation": {
+    "required": "Bắt buộc.",
+    "suitRequired": "Chọn chất cho lá Ẩn Phụ.",
+    "numerologyInvalid": "Nhập một số nguyên.",
+    "keywordsRequired": "Thêm ít nhất một từ khóa.",
+    "baseUrlInvalid": "Nhập URL bắt đầu bằng http:// hoặc https://.",
+    "timeoutInvalid": "Nhập số giây nguyên từ 1 đến 3600.",
+    "valueRequired": "Nhập giá trị.",
+    "valueInvalidJson": "JSON không hợp lệ. Chuỗi cần dấu ngoặc kép, ví dụ \"llama3.2:3b\".",
+    "nameInvalid": "Chỉ dùng chữ, số và . : _ -",
+    "nameTooLong": "Tối đa 128 ký tự.",
+    "nameReserved": "Tên này đã được dùng cho một nhóm cài đặt có sẵn.",
+    "nameTaken": "Đã có cài đặt với tên này. Hãy sửa nó trong bảng."
+  }
+}

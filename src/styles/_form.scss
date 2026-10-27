@@ -1,0 +1,97 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px 16px;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+
+  .error,
+  .hint {
+    margin: 0;
+  }
+}
+
+.editor {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  &__art {
+    position: sticky;
+    top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.45);
+
+    @media (max-width: 900px) {
+      position: static;
+      width: 140px;
+      justify-self: center;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    // The form is long: keep saving within reach while scrolling.
+    > .form-actions {
+      position: sticky;
+      bottom: 0;
+      padding: 14px 0;
+      background: linear-gradient(transparent, var(--bg) 35%);
+    }
+  }
+}
+
+.orientations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setting-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &--new {
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+
+  &__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}

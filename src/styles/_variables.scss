@@ -1,0 +1,22 @@
+:root {
+  // Colors
+  --bg: #110e1c;
+  --bg-raised: #1a1629;
+  --bg-sunken: #0c0a14;
+  --line: #2e2844;
+  --text: #ece4d4;
+  --text-dim: #a59db8;
+  --gold: #d6b26e;
+  --gold-bright: #f0d395;
+  --danger: #ef8f8f;
+  --ok: #8fd6a8;
+
+  // Sizing
+  --radius: 12px;
+  --card-ratio: 7 / 12;
+
+  // Typography
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}

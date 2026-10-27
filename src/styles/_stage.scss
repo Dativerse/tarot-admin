@@ -1,0 +1,26 @@
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+
+  &__spacer {
+    flex: 1;
+  }
+
+  &__search {
+    max-width: 320px;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}

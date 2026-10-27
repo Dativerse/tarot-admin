@@ -1,0 +1,124 @@
+.app {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "brand" "main" "footer";
+  min-height: 100vh;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px 32px;
+
+  @media (max-width: 900px) {
+    padding: 16px;
+  }
+}
+
+.header {
+  grid-area: brand;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+
+  &__link {
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: var(--text);
+      background: rgb(255 255 255 / 0.05);
+    }
+
+    &.is-active {
+      color: var(--gold-bright);
+      background: rgb(214 178 110 / 0.12);
+    }
+  }
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-size: 0.8rem;
+
+  &__btn {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+      color: var(--text);
+      background: rgb(255 255 255 / 0.05);
+    }
+
+    &.is-active {
+      color: var(--gold);
+      background: rgb(214 178 110 / 0.12);
+    }
+  }
+
+  &__sep {
+    color: var(--line);
+  }
+}
+
+.main {
+  grid-area: main;
+  min-width: 0;
+}
+
+.footer {
+  grid-area: footer;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.splash {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 60vh;
+  color: var(--text-dim);
+}
+
+.sign-in {
+  max-width: 400px;
+  margin: 8vh auto;
+  padding: 28px;
+  gap: 18px;
+
+  > .button {
+    align-self: flex-start;
+  }
+}
