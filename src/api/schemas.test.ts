@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import {
   CardDetailSchema,
   CardFormSchema,
@@ -7,48 +6,40 @@ import {
   SettingValueFormSchema,
   newSettingSchema,
   toCardForm,
-  toUpdateCardRequest,
   type CardDetail,
 } from "@/api/schemas";
 
-// Shapes as Tarot.Admin.Api sends them: columns in camelCase, cards.data with the dataset's snake_case keys.
+// As Tarot.Admin.Api sends a card: every field, in camelCase.
 const fiveOfCups = {
   id: 40,
   name: "Five of Cups",
   arcana: "minor",
   suit: "cups",
-  data: {
-    id: 40,
-    name: "Five of Cups",
-    arcana: "minor",
-    suit: "cups",
-    number_numerology: 5,
-    element: "Water",
-    planet: "Mars",
-    zodiac: "Scorpio",
-    yes_no: "no",
-    yes_no_reversed: "yes",
-    keywords_upright: ["loss", "grief", "regret", "focusing on what's gone", "disappointment"],
-    keywords_reversed: ["acceptance", "moving on", "forgiveness", "seeing what remains", "healing"],
-    meaning_upright: "Loss, grief, regret, focusing on what's gone, disappointment.",
-    meaning_reversed: "Acceptance, moving on, forgiveness, seeing what remains, healing.",
-    love: "heartbreak, regret in love, grieving a relationship, focusing on emotional loss",
-    love_reversed: "acceptance, moving on, forgiveness, healing",
-    career: "professional disappointment, missed opportunity, career regret, learning from setbacks",
-    career_reversed: "moving on from setbacks, acceptance, learning from loss, recovery",
-    mood: "Sorrowful, regretful.",
-    mood_reversed: "healing, accepting, lighter",
-    spiritual: "spiritual lessons through grief, acceptance of loss, emotional release, noticing what remains",
-    spiritual_reversed: "acceptance, forgiveness, seeing what remains, emotional healing",
-    image_credit: "RWS 1909",
-  },
+  numberNumerology: 5,
+  element: "Water",
+  planet: "Mars",
+  zodiac: "Scorpio",
+  yesNo: "no",
+  yesNoReversed: "yes",
+  keywordsUpright: ["loss", "grief", "regret", "focusing on what's gone", "disappointment"],
+  keywordsReversed: ["acceptance", "moving on", "forgiveness", "seeing what remains", "healing"],
+  meaningUpright: "Loss, grief, regret, focusing on what's gone, disappointment.",
+  meaningReversed: "Acceptance, moving on, forgiveness, seeing what remains, healing.",
+  love: "heartbreak, regret in love, grieving a relationship, focusing on emotional loss",
+  loveReversed: "acceptance, moving on, forgiveness, healing",
+  career: "professional disappointment, missed opportunity, career regret, learning from setbacks",
+  careerReversed: "moving on from setbacks, acceptance, learning from loss, recovery",
+  mood: "Sorrowful, regretful.",
+  moodReversed: "healing, accepting, lighter",
+  spiritual: "spiritual lessons through grief, acceptance of loss, emotional release, noticing what remains",
+  spiritualReversed: "acceptance, forgiveness, seeing what remains, emotional healing",
 };
 
 const card = (): CardDetail => CardDetailSchema.parse(structuredClone(fiveOfCups));
 
 describe("CardDetailSchema", () => {
-  it("parses a card as the API sends it and keeps data keys it doesn't know", () => {
-    expect(card().data.image_credit).toBe("RWS 1909");
+  it("parses a card as the API sends it", () => {
+    expect(card()).toEqual(fiveOfCups);
   });
 
   it("rejects an arcana outside the dataset", () => {
@@ -57,15 +48,15 @@ describe("CardDetailSchema", () => {
 });
 
 describe("CardFormSchema", () => {
-  it("round-trips a stored card unchanged", () => {
-    const values = CardFormSchema.parse(toCardForm(card()));
-    expect(toUpdateCardRequest(card(), values).data).toEqual(fiveOfCups.data);
+  it("round-trips a stored card into the update request unchanged", () => {
+    const { id: _id, ...request } = fiveOfCups;
+    expect(CardFormSchema.parse(toCardForm(card()))).toEqual(request);
   });
 
   it("splits and trims keywords, and requires at least one", () => {
-    const form = { ...toCardForm(card()), keywords_upright: " loss,  grief ,, " };
-    expect(CardFormSchema.parse(form).keywords_upright).toEqual(["loss", "grief"]);
-    expect(CardFormSchema.safeParse({ ...form, keywords_upright: " , " }).error?.issues[0].message).toBe(
+    const form = { ...toCardForm(card()), keywordsUpright: " loss,  grief ,, " };
+    expect(CardFormSchema.parse(form).keywordsUpright).toEqual(["loss", "grief"]);
+    expect(CardFormSchema.safeParse({ ...form, keywordsUpright: " , " }).error?.issues[0].message).toBe(
       "keywordsRequired",
     );
   });
@@ -73,31 +64,19 @@ describe("CardFormSchema", () => {
   it("stores an empty planet as null and requires a whole number", () => {
     const form = { ...toCardForm(card()), planet: "  " };
     expect(CardFormSchema.parse(form).planet).toBeNull();
-    expect(CardFormSchema.safeParse({ ...form, number_numerology: "5.5" }).success).toBe(false);
+    expect(CardFormSchema.safeParse({ ...form, numberNumerology: "5.5" }).success).toBe(false);
   });
 
-  it("requires a suit for the Minor Arcana and drops it for the Major", () => {
+  it("requires a suit for the Minor Arcana and sends null for the Major", () => {
     const form = toCardForm(card());
     expect(CardFormSchema.safeParse({ ...form, suit: null }).error?.issues).toMatchObject([
       { path: ["suit"], message: "suitRequired" },
     ]);
     expect(CardFormSchema.parse({ ...form, arcana: "major" }).suit).toBeNull();
   });
-});
 
-describe("toUpdateCardRequest", () => {
-  it("clears the suit with an empty string, since null means unchanged", () => {
-    const values = CardFormSchema.parse({ ...toCardForm(card()), arcana: "major", suit: null });
-    const request = toUpdateCardRequest(card(), values);
-    expect(request.suit).toBe("");
-    expect(request.data.suit).toBeNull();
-  });
-
-  it("mirrors the edited name into data and keeps the id", () => {
-    const values = CardFormSchema.parse({ ...toCardForm(card()), name: "  5 of Cups " });
-    const request = toUpdateCardRequest(card(), values);
-    expect(request.name).toBe("5 of Cups");
-    expect(request.data).toMatchObject({ id: 40, name: "5 of Cups", image_credit: "RWS 1909" });
+  it("trims the name it sends", () => {
+    expect(CardFormSchema.parse({ ...toCardForm(card()), name: "  5 of Cups " }).name).toBe("5 of Cups");
   });
 });
 

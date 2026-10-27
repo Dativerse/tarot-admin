@@ -6,7 +6,6 @@ import {
   SuitSchema,
   YesNoSchema,
   toCardForm,
-  toUpdateCardRequest,
   type Arcana,
   type CardDetail,
   type UpdateCardRequest,
@@ -24,25 +23,25 @@ type Props = {
   onSubmit: (request: UpdateCardRequest) => void;
 };
 
-// The dataset names the upright and reversed variants unevenly, so each orientation lists its own keys.
+// The API names the upright and reversed variants unevenly, so each orientation lists its own keys.
 const ORIENTATIONS = {
   upright: {
-    yesNo: "yes_no",
-    keywords: "keywords_upright",
-    meaning: "meaning_upright",
+    yesNo: "yesNo",
+    keywords: "keywordsUpright",
+    meaning: "meaningUpright",
     love: "love",
     career: "career",
     mood: "mood",
     spiritual: "spiritual",
   },
   reversed: {
-    yesNo: "yes_no_reversed",
-    keywords: "keywords_reversed",
-    meaning: "meaning_reversed",
-    love: "love_reversed",
-    career: "career_reversed",
-    mood: "mood_reversed",
-    spiritual: "spiritual_reversed",
+    yesNo: "yesNoReversed",
+    keywords: "keywordsReversed",
+    meaning: "meaningReversed",
+    love: "loveReversed",
+    career: "careerReversed",
+    mood: "moodReversed",
+    spiritual: "spiritualReversed",
   },
 } as const;
 
@@ -66,7 +65,7 @@ const SIGNS = [
   "Pisces",
 ];
 
-/** Edits one card: its name, arcana and suit, and every field of its dataset record. */
+/** Edits every field of one card. */
 export function CardEditor({ card, busy, saved, error, onSubmit }: Props) {
   const { t } = useTranslation();
   const form = useForm(CardFormSchema, toCardForm(card));
@@ -87,7 +86,7 @@ export function CardEditor({ card, busy, saved, error, onSubmit }: Props) {
   const submit = (e: SubmitEvent) => {
     e.preventDefault();
     const parsed = form.validate();
-    if (parsed) onSubmit(toUpdateCardRequest(card, parsed));
+    if (parsed) onSubmit(parsed);
   };
 
   return (
@@ -126,13 +125,13 @@ export function CardEditor({ card, busy, saved, error, onSubmit }: Props) {
       <section className="panel">
         <h2 className="panel__title">{t("cardEditor.correspondences")}</h2>
         <div className="form-grid">
-          <Field label={t("cardEditor.numerology")} error={errors.number_numerology}>
+          <Field label={t("cardEditor.numerology")} error={errors.numberNumerology}>
             <input
               className="input"
               inputMode="numeric"
-              value={values.number_numerology}
-              onChange={(e) => set("number_numerology", e.target.value)}
-              aria-invalid={errors.number_numerology !== undefined}
+              value={values.numberNumerology}
+              onChange={(e) => set("numberNumerology", e.target.value)}
+              aria-invalid={errors.numberNumerology !== undefined}
             />
           </Field>
           <Field label={t("cardEditor.element")} error={errors.element}>

@@ -18,32 +18,27 @@ export const CardSchema = z.object({
   suit: SuitSchema.nullable(),
 });
 
-/**
- * One record of the Tarotoo dataset as stored in cards.data, with its snake_case keys.
- * Loose because an update replaces the whole object, so keys this app doesn't know must survive a save.
- */
-export const CardDataSchema = z.looseObject({
-  number_numerology: z.int().nonnegative(),
+/** Every field of a card, as the editor shows it. */
+export const CardDetailSchema = CardSchema.extend({
+  numberNumerology: z.int().nonnegative(),
   element: z.string(),
   planet: z.string().nullable(),
   zodiac: z.string(),
-  yes_no: YesNoSchema,
-  yes_no_reversed: YesNoSchema,
-  keywords_upright: z.array(z.string()),
-  keywords_reversed: z.array(z.string()),
-  meaning_upright: z.string(),
-  meaning_reversed: z.string(),
+  yesNo: YesNoSchema,
+  yesNoReversed: YesNoSchema,
+  keywordsUpright: z.array(z.string()),
+  keywordsReversed: z.array(z.string()),
+  meaningUpright: z.string(),
+  meaningReversed: z.string(),
   love: z.string(),
-  love_reversed: z.string(),
+  loveReversed: z.string(),
   career: z.string(),
-  career_reversed: z.string(),
+  careerReversed: z.string(),
   mood: z.string(),
-  mood_reversed: z.string(),
+  moodReversed: z.string(),
   spiritual: z.string(),
-  spiritual_reversed: z.string(),
+  spiritualReversed: z.string(),
 });
-
-export const CardDetailSchema = CardSchema.extend({ data: CardDataSchema });
 
 export const SeedResultSchema = z.object({ cardsSeeded: z.int().nonnegative() });
 
@@ -86,7 +81,6 @@ export type Suit = z.infer<typeof SuitSchema>;
 export type YesNo = z.infer<typeof YesNoSchema>;
 export type ReversalMode = z.infer<typeof ReversalModeSchema>;
 export type Card = z.infer<typeof CardSchema>;
-export type CardData = z.infer<typeof CardDataSchema>;
 export type CardDetail = z.infer<typeof CardDetailSchema>;
 export type Setting = z.infer<typeof SettingSchema>;
 export type OllamaSettings = z.infer<typeof OllamaSettingsSchema>;
@@ -101,7 +95,7 @@ const Text = z.string().trim().min(1, "required");
 /** A whole number typed into a text input. */
 const WholeNumber = (message: string) => z.string().trim().regex(/^\d+$/, message).transform(Number);
 
-/** Comma-separated in the form, an array in the dataset. */
+/** Comma-separated in the form, an array in the API. */
 const Keywords = z
   .string()
   .transform((text) =>
@@ -117,69 +111,43 @@ export const CardFormSchema = z
     name: Text,
     arcana: ArcanaSchema,
     suit: SuitSchema.nullable(),
-    number_numerology: WholeNumber("numerologyInvalid"),
+    numberNumerology: WholeNumber("numerologyInvalid"),
     element: Text,
     planet: z
       .string()
       .trim()
       .transform((planet) => planet || null),
     zodiac: Text,
-    yes_no: YesNoSchema,
-    yes_no_reversed: YesNoSchema,
-    keywords_upright: Keywords,
-    keywords_reversed: Keywords,
-    meaning_upright: Text,
-    meaning_reversed: Text,
+    yesNo: YesNoSchema,
+    yesNoReversed: YesNoSchema,
+    keywordsUpright: Keywords,
+    keywordsReversed: Keywords,
+    meaningUpright: Text,
+    meaningReversed: Text,
     love: Text,
-    love_reversed: Text,
+    loveReversed: Text,
     career: Text,
-    career_reversed: Text,
+    careerReversed: Text,
     mood: Text,
-    mood_reversed: Text,
+    moodReversed: Text,
     spiritual: Text,
-    spiritual_reversed: Text,
+    spiritualReversed: Text,
   })
   .refine((card) => card.arcana === "major" || card.suit !== null, { error: "suitRequired", path: ["suit"] })
   .transform((card) => (card.arcana === "major" ? { ...card, suit: null } : card));
 export type CardForm = z.input<typeof CardFormSchema>;
 
 /** The editor's starting values: what the inputs hold for this card. */
-export const toCardForm = ({ name, arcana, suit, data }: CardDetail): CardForm => ({
-  name,
-  arcana,
-  suit,
-  number_numerology: String(data.number_numerology),
-  element: data.element,
-  planet: data.planet ?? "",
-  zodiac: data.zodiac,
-  yes_no: data.yes_no,
-  yes_no_reversed: data.yes_no_reversed,
-  keywords_upright: data.keywords_upright.join(", "),
-  keywords_reversed: data.keywords_reversed.join(", "),
-  meaning_upright: data.meaning_upright,
-  meaning_reversed: data.meaning_reversed,
-  love: data.love,
-  love_reversed: data.love_reversed,
-  career: data.career,
-  career_reversed: data.career_reversed,
-  mood: data.mood,
-  mood_reversed: data.mood_reversed,
-  spiritual: data.spiritual,
-  spiritual_reversed: data.spiritual_reversed,
+export const toCardForm = ({ id: _id, numberNumerology, planet, keywordsUpright, keywordsReversed, ...card }: CardDetail): CardForm => ({
+  ...card,
+  numberNumerology: String(numberNumerology),
+  planet: planet ?? "",
+  keywordsUpright: keywordsUpright.join(", "),
+  keywordsReversed: keywordsReversed.join(", "),
 });
 
-export type UpdateCardRequest = { name: string; arcana: Arcana; suit: Suit | ""; data: CardData };
-
-/**
- * The API replaces cards.data wholesale and reads `suit: null` as "leave unchanged", so this keeps the data
- * keys the form doesn't cover, mirrors name, arcana and suit into data, and sends "" to clear the suit.
- */
-export const toUpdateCardRequest = (card: CardDetail, values: z.output<typeof CardFormSchema>): UpdateCardRequest => ({
-  name: values.name,
-  arcana: values.arcana,
-  suit: values.suit ?? "",
-  data: { ...card.data, ...values },
-});
+/** Replaces every field of the card; a null suit means it has none. */
+export type UpdateCardRequest = z.output<typeof CardFormSchema>;
 
 export const OllamaFormSchema = z.object({
   baseUrl: z.url({ protocol: /^https?$/, error: "baseUrlInvalid" }),

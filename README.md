@@ -53,8 +53,7 @@ first one's `code` and `metadata`. The API sends no message text: `useErrorMessa
 answer from the API, or a 502–504 from the proxy in front of it, the code is `UNAVAILABLE`. A body that isn't an
 envelope, or `data` that doesn't match its schema, throws a `ContractError`, as in `tarot-client`.
 
-`PUT /api/admin/cards/{id}` replaces the card's whole `data` object and reads `suit: null` as "unchanged", so
-the editor sends every dataset key back (including ones it doesn't show) and clears a suit with `""`.
+`PUT /api/admin/cards/{id}` replaces every field of the card, so the editor sends them all; `suit: null` means none.
 Setting values are JSON text: `"llama3.2:3b"` with its quotes, `300`, `0.3`.
 
 Readings use the cards as stored here. The API and the worker cache cards and settings for up to 5 minutes, so
